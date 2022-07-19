@@ -1,6 +1,7 @@
 import {
   ForbiddenException,
   Injectable,
+  NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
 import { validationNullORUndefined } from 'src/share/utils/validation.util';
@@ -47,5 +48,17 @@ export class UserService {
       user,
       token,
     };
+  }
+
+  public async getUserByUserID(userEmail: string): Promise<User> {
+    const user: undefined | User = await this.userPepository.findOne({
+      where: { email: userEmail },
+    });
+
+    if (validationNullORUndefined(user)) {
+      throw new NotFoundException('유저가 없습니다.');
+    }
+
+    return user;
   }
 }

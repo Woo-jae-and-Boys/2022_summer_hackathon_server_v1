@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { Token } from 'src/common/decorators/token.decorator';
 import { AuthGuard } from 'src/common/guards/auth.guard';
 import DataResponse from 'src/common/response/DataResponse';
@@ -7,6 +7,7 @@ import { InfToken } from 'src/share/interfaces/InfToken';
 import { TokenService } from 'src/token/token.service';
 import { loginDto } from './dto/login.dto';
 import { UserDto } from './dto/user.dto';
+import { User } from './entities/user.entitiy';
 import { InfLoginResponse } from './responses/login.response';
 import { UserService } from './user.service';
 
@@ -26,5 +27,11 @@ export class UserController {
     const loginRes: InfLoginResponse = await this.userService.login(dto);
 
     return DataResponse.dataSuccesss('로그인 성공', loginRes);
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('test')
+  async test(@Token() user: User): Promise<void> {
+    console.log(user);
   }
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { flatten, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
 

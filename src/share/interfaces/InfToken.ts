@@ -1,9 +1,9 @@
 export interface InfToken {
-  userId: string;
+  userEmail: string;
   iss: string;
   sub: string;
 }
 
 export interface InfTokenPayload {
-  userId: string;
+  userEmail: string;
 }

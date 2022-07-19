@@ -7,6 +7,9 @@ import { UserModule } from './user/user.module';
 import { DatabaseModule } from './database/database.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { MysqlConnectService } from './database/mysqlConnect.service';
+import { ProjectModule } from './project/project.module';
+import { ErrandsModule } from './errands/errands.module';
+import { DeliveryModule } from './delivery/delivery.module';
 
 @Module({
   imports: [
@@ -22,6 +25,9 @@ import { MysqlConnectService } from './database/mysqlConnect.service';
     TokenModule,
     UserModule,
     DatabaseModule,
+    ProjectModule,
+    ErrandsModule,
+    DeliveryModule,
   ],
   controllers: [AppController],
   providers: [AppService],

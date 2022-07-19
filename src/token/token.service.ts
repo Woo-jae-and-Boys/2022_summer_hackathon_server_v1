@@ -23,9 +23,9 @@ export class TokenService {
     private configService: ConfigService,
   ) {}
 
-  private makepayload(userId: string): InfTokenPayload {
+  private makepayload(userEmail: string): InfTokenPayload {
     return {
-      userId,
+      userEmail,
     };
   }
 
@@ -41,8 +41,8 @@ export class TokenService {
     return this.jwtService.sign(payload, option);
   }
 
-  public makeRefreshToken(userId: string): string {
-    const payload: InfTokenPayload = this.makepayload(userId);
+  public makeRefreshToken(userEmail: string): string {
+    const payload: InfTokenPayload = this.makepayload(userEmail);
 
     const option: JwtSignOptions = {
       expiresIn: this.configService.get<string>('JWT_REFRESH_EXPIRE'),
@@ -53,7 +53,7 @@ export class TokenService {
   }
 
   public async remakeAccessToken(dto: reMakeDto): Promise<string> {
-    const { iss, sub, userId }: InfToken = await this.verifyToken(
+    const { iss, sub, userEmail }: InfToken = await this.verifyToken(
       dto.refreshToken,
     );
 
@@ -61,7 +61,7 @@ export class TokenService {
       throw new UnauthorizedException('토큰이 위조되었습니다');
     }
 
-    return this.makeAccessToken(userId);
+    return this.makeAccessToken(userEmail);
   }
 
   public async verifyToken(token: string) {
