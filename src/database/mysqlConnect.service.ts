@@ -15,7 +15,7 @@ export class MysqlConnectService implements TypeOrmOptionsFactory {
       password: this.configSerivce.get('DB_PASSWORD'),
       database: this.configSerivce.get('DB_NAME'),
       entities: [__dirname + '/../**/**/*.entity{.ts,.js}'],
-      synchronize: true,
+      synchronize: false,
       autoLoadEntities: true,
     };
   }
