@@ -1,10 +1,17 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  UploadedFile,
+  UseGuards,
+  UseInterceptors,
+} from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { Token } from 'src/common/decorators/token.decorator';
 import { AuthGuard } from 'src/common/guards/auth.guard';
 import DataResponse from 'src/common/response/DataResponse';
 import Response from 'src/common/response/response';
-import { InfToken } from 'src/share/interfaces/InfToken';
-import { TokenService } from 'src/token/token.service';
 import { loginDto } from './dto/login.dto';
 import { UserDto } from './dto/user.dto';
 import { User } from './entities/user.entitiy';
@@ -33,5 +40,11 @@ export class UserController {
   @Get('test')
   async test(@Token() user: User): Promise<void> {
     console.log(user);
+  }
+
+  @Post('upload')
+  @UseInterceptors(FileInterceptor('file'))
+  uplaodFile(@UploadedFile() file: Express.Multer.File) {
+    console.log(file);
   }
 }

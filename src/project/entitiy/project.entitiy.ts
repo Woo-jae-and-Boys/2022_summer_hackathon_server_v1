@@ -28,6 +28,12 @@ export class Project {
   @Column()
   platForm: string;
 
+  @Column()
+  otherInfo: string;
+
+  @Column()
+  img: string;
+
   @ManyToOne(() => User, (user) => user.projects)
   @JoinColumn({ name: 'owner' })
   user: User;

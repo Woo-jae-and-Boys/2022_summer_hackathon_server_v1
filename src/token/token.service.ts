@@ -41,17 +41,6 @@ export class TokenService {
     return this.jwtService.sign(payload, option);
   }
 
-  public makeRefreshToken(userEmail: string): string {
-    const payload: InfTokenPayload = this.makepayload(userEmail);
-
-    const option: JwtSignOptions = {
-      expiresIn: this.configService.get<string>('JWT_REFRESH_EXPIRE'),
-      issuer: JWT_ISSUER,
-      subject: JWT_REFRESH_SUBJECT,
-    };
-    return this.jwtService.sign(payload, option);
-  }
-
   public async remakeAccessToken(dto: reMakeDto): Promise<string> {
     const { iss, sub, userEmail }: InfToken = await this.verifyToken(
       dto.refreshToken,

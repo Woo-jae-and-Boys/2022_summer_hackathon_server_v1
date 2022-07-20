@@ -31,15 +31,16 @@ export class UserService {
   }
 
   public async login(dto: loginDto): Promise<InfLoginResponse> {
-    console.log(dto.email);
     const user: undefined | User = await this.userPepository.findOne({
-      where: { email: 'tomato@gmail.com' },
+      where: { email: dto.email },
     });
-    console.log(await this.userPepository.find());
-    console.log(user);
 
     if (validationNullORUndefined(user)) {
-      throw new UnauthorizedException('id 또는 password가 일치 하지 않습니다');
+      throw new UnauthorizedException('id 또는 password가 일치 하지 않습니다.');
+    }
+
+    if (user.password !== dto.password) {
+      throw new UnauthorizedException('id 또는 password가 일치 하지 않습니다.');
     }
 
     const token: string = this.tokenService.makeAccessToken(user.email);

@@ -19,5 +19,9 @@ export class createProjectDto {
 
   @IsString()
   @IsEmpty()
+  otherInfo: string;
+
+  @IsString()
+  @IsEmpty()
   teamInfo: string;
 }

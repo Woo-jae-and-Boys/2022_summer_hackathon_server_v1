@@ -9,10 +9,16 @@ import { ProjectRepository } from './repositories/project.repository';
 export class ProjectService {
   constructor(private readonly projectRepository: ProjectRepository) {}
 
-  public async createProject(dto: createProjectDto, user: User): Promise<void> {
+  public async createProject(
+    dto: createProjectDto,
+    user: User,
+    file: Express.Multer.File,
+  ): Promise<void> {
     const proeject: undefined | Project = await this.projectRepository.findOne({
       where: { title: dto.title },
     });
+
+    const filepath = file.path.split('/');
 
     if (!validationNullORUndefined(proeject)) {
       throw new UnauthorizedException('이미 존재하는 제목입니다');
@@ -20,7 +26,8 @@ export class ProjectService {
 
     const data = this.projectRepository.create(dto);
     data.user = user;
-    await this.projectRepository.save(data);
+    data.img = filepath[1];
+    await this.projectRepository.save(data); // 파일명에 확장자 저장 + http://{ip}:{port}/upload/{파일명.확장자}
   }
 
   public async getAllList(): Promise<Project[]> {

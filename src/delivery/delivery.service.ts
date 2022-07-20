@@ -18,7 +18,6 @@ export class DeliveryService {
     const list: undefined | Delivery[] = await this.deliveryRepository.find({
       relations: ['user'],
     });
-    console.log(list);
 
     return list;
   }

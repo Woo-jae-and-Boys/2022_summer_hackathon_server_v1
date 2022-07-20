@@ -7,10 +7,10 @@ import { TokenService } from './token.service';
 export class TokenController {
   constructor(private readonly tokenService: TokenService) {}
 
-  @HttpCode(200)
-  @Post('/refresh')
-  async remakeToken(@Body() dto: reMakeDto) {
-    const token: string = await this.tokenService.remakeAccessToken(dto);
-    return DataResponse.dataSuccesss('토큰이 재발급 되었습니다', token);
-  }
+  // @HttpCode(200)
+  // @Post('/refresh')
+  // async remakeToken(@Body() dto: reMakeDto) {
+  //   const token: string = await this.tokenService.remakeAccessToken(dto);
+  //   return DataResponse.dataSuccesss('토큰이 재발급 되었습니다', token);
+  // }
 }

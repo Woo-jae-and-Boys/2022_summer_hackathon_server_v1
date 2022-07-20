@@ -13,12 +13,13 @@ export class DeliveryController {
   constructor(private readonly deliveryService: DeliveryService) {}
 
   @UseGuards(AuthGuard)
-  @Post('craete')
+  @Post('create')
   async createDelivery(
     @Body() dto: DeliveryDto,
     @Token() user: User,
   ): Promise<Response> {
     await this.deliveryService.createDelivery(dto, user);
+    console.log(dto);
 
     return Response.success('배달 등록 성공');
   }
